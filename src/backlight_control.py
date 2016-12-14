@@ -16,17 +16,16 @@ class BacklightControl:
         self.rate = rospy.Rate(10)  # 10Hz
 
         # ROS subscriptions
-        self.subscriber = rospy.Subscriber('Backlight_Color', int32, self.callback_set_color)
+        self.subscriber = rospy.Subscriber('Backlight_Color', String, self.callback_set_color)
 
         # ROS publishments
         self.done_module = rospy.Publisher('Done_Module', String, queue_size=10)
 
-	#TODO
-	# GPIO 
-	white_pin =
-	blue_pin = 
+        #TODO
+        # GPIO 
+        self.white_pin = 10
+        self.blue_pin = 25
 
-    def init_gpio(self):
         """This function initializes GPIO pins for the node"""
 
         self.gpio = pigpio.pi()
@@ -37,29 +36,38 @@ class BacklightControl:
         self.gpio.write(self.white_pin, pigpio.LOW)
 
         self.gpio.set_mode(self.blue_pin, pigpio.OUTPUT)
-	self.gpio.write(self.blue_pin, pigpio.LOW)
+        self.gpio.write(self.blue_pin, pigpio.LOW)
 
 
     def callback_set_color(self, data):
 
-	self.gpio.write(self.white_pin,pigpio.LOW)
-	self.gpio.write(self.blue_pin, pigpio.LOW)
+        self.gpio.write(self.white_pin,pigpio.LOW)
+        self.gpio.write(self.blue_pin, pigpio.LOW)
 
-	# white_pin HIGH 	
-	if data == 1:
-		self.gpio.write(self.white_pin, pigpio.HIGH)
+        # white_pin HIGH     
+        if data.data == "white":
+            self.gpio.write(self.white_pin, pigpio.HIGH)
 
-	# blue_pin HIGH
-	elif data == 2:
-		self.gpio.write(self.blue_pin, pigpio.HIGH)
+        # blue_pin HIGH
+        elif data.data == "blue":
+            self.gpio.write(self.blue_pin, pigpio.HIGH)
 
-	# All gpio to 0
-	else:
-		pass
+        # All gpio to 0
+        else:
+            pass
 
-	self.done_module.publish("backlight_module")
+        self.done_module.publish("Backlight")
 
     # Listening function
     def listener(self):
         rospy.spin()
+
+
+if __name__ == '__main__':
+    try:
+        bm = BacklightControl()
+        bm.listener()
+
+    except rospy.ROSInterruptException as e:
+        print(e)
 

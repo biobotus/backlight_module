@@ -1,0 +1,24 @@
+Help on module backlight_control:
+
+NAME
+    backlight_control - # Imports
+
+FILE
+    /home/ubuntu/biobot_ws/src/backlight_module/src/backlight_control.py
+
+CLASSES
+    BacklightControl
+    
+    class BacklightControl
+     |  This class is the ROS nodes used to control backlight module
+     |  
+     |  Methods defined here:
+     |  
+     |  __init__(self)
+     |  
+     |  callback_set_color(self, data)
+     |  
+     |  listener(self)
+     |      # Listening function
+
+
