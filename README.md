@@ -10,7 +10,7 @@ ROS topics. It can received 3 values :
 - "blue", sets the GPIO pin 25 to High
 - "None", sets the GPIO pin 10 and 25 to Low
 
-GPIO Pins 14 and 25 are outputs pins and are connected to the relay circuit 
+GPIO Pins 10 and 25 are outputs pins and are connected to the relay circuit 
 in the backlight physical model to polarize the the diodes stripes.
 
 Once the GPIO pins are setted, the ROS node publish a 
